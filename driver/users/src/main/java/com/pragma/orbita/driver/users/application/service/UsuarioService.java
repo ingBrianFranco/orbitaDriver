@@ -64,8 +64,8 @@ public class UsuarioService {
         return new ObjetoRespuestaDomain<Object>(idUsuario, respuesta.getMessage());
     }
 
-    public ObjetoRespuestaDomain<List<UsuarioDTORespuesta>> obtenerTodasUsuarios(){
-        Stream<Usuario> UsuarioStream = usuarioUseCase.obtenerTodasUsuarios().getDato();
+    public ObjetoRespuestaDomain<List<UsuarioDTORespuesta>> obtenerTodosUsuarios(){
+        Stream<Usuario> UsuarioStream = usuarioUseCase.obtenerTodosUsuarios().getDato();
 
         List<UsuarioDTORespuesta> Usuarios = UsuarioStream
                 .map(

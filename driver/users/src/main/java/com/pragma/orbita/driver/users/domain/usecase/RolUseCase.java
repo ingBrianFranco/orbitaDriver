@@ -63,15 +63,15 @@ public class RolUseCase {
             return new ObjetoRespuestaDomain<Object>(null, "Id no válido");
         }
         if(!existeRolById(idRol)){
-            return new ObjetoRespuestaDomain<Object>(idRol, "Esta categoría no se encuentra registrada en el sistema, nada que eliminar");
+            return new ObjetoRespuestaDomain<Object>(idRol, "Este rol no se encuentra registrado en el sistema, nada que eliminar");
         }
 
         rolRepository.eliminarRolById(idRol);
 
         if(!existeRolById(idRol)){
-            return new ObjetoRespuestaDomain<Object>(idRol, "Categoría eliminada con éxito");
+            return new ObjetoRespuestaDomain<Object>(idRol, "Rol eliminado con éxito");
         }else{
-            return new ObjetoRespuestaDomain<Object>(idRol, "Ocurrió un error al eliminar la categoría");
+            return new ObjetoRespuestaDomain<Object>(idRol, "Ocurrió un error al eliminar el rol");
         }
     }
 

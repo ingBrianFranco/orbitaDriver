@@ -74,7 +74,7 @@ public class UsuarioUseCase {
         }
     }
 
-    public ObjetoRespuestaDomain<Stream<Usuario>> obtenerTodasUsuarios(){
+    public ObjetoRespuestaDomain<Stream<Usuario>> obtenerTodosUsuarios(){
         return new ObjetoRespuestaDomain<Stream<Usuario>>(
                 usuarioRepository.obtenerTodosUsuarios(),
                 "Listado"
