@@ -6,6 +6,7 @@ import com.pragma.orbita.driver.users.infrastructure.persistence.DAO.IUsuarioDao
 import com.pragma.orbita.driver.users.infrastructure.persistence.entity.UsuarioEntity;
 import com.pragma.orbita.driver.users.infrastructure.persistence.mapper.IMapperUsuarioRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,10 +15,10 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UsuarioRepositoryImpl implements IUsuarioRepository {
     
-    private IUsuarioDao usuarioDao;
+    private final IUsuarioDao usuarioDao;
 
 
     @Override
@@ -35,11 +36,11 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
     }
 
     @Override
-    public Usuario guardarUsuario(Usuario Usuario) {
-        UsuarioEntity UsuarioEntity = IMapperUsuarioRepository.INSTANCE.usuarioToEntity(Usuario);
+    public Usuario guardarUsuario(Usuario usuario) {
+        UsuarioEntity usuarioEntity = IMapperUsuarioRepository.INSTANCE.usuarioToEntity(usuario);
         return IMapperUsuarioRepository
                 .INSTANCE.entityToUsuario(
-                        usuarioDao.save(UsuarioEntity)
+                        usuarioDao.save(usuarioEntity)
                 );
     }
 

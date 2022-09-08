@@ -18,8 +18,8 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class UsuarioUseCase {
 
-    private IUsuarioRepository usuarioRepository;
-    private Validator validator;
+    private final IUsuarioRepository usuarioRepository;
+    private final Validator validator;
 
     public Usuario getUsuarioById(int idUsuario){
         if(idUsuario <= 0){

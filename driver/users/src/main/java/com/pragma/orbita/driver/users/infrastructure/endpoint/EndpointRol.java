@@ -2,9 +2,9 @@ package com.pragma.orbita.driver.users.infrastructure.endpoint;
 
 import com.pragma.orbita.driver.users.application.DTOConsulta.RolDTOConsulta;
 import com.pragma.orbita.driver.users.application.DTORespuesta.RolDTORespuesta;
-import com.pragma.orbita.driver.users.application.service.RolService;
 import com.pragma.orbita.driver.users.application.respuesta.ObjetoRespuesta;
-import lombok.AllArgsConstructor;
+import com.pragma.orbita.driver.users.application.service.RolService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -18,10 +18,10 @@ import java.util.List;
 @RestController
 @RequestMapping("rol")
 @Validated
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class EndpointRol {
     
-    private RolService rolService;
+    private final RolService rolService;
 
     @GetMapping("/{idRol}")
     public ResponseEntity<RolDTORespuesta> buscarRolPorId(@NotNull @PathVariable int idRol){

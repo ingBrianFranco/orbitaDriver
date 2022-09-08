@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class RolService {
     
-    private RolUseCase rolUseCase;
+    private final RolUseCase rolUseCase;
 
     public ObjetoRespuesta<RolDTORespuesta> buscarRolPorId(int idRol){
         Rol respuesta = rolUseCase.getRolById(idRol);
@@ -33,8 +33,8 @@ public class RolService {
         return new ObjetoRespuesta<RolDTORespuesta>(RolDTORespuesta, "Rol encontrado");
     }
 
-    public ObjetoRespuesta<RolDTORespuesta> guardarRol(RolDTOConsulta RolDTOConsulta){
-        Rol rol = IRolMapper.INSTANCE.consultaDtoToRol(RolDTOConsulta);
+    public ObjetoRespuesta<RolDTORespuesta> guardarRol(RolDTOConsulta rolDTOConsulta){
+        Rol rol = IRolMapper.INSTANCE.consultaDtoToRol(rolDTOConsulta);
         try {
             Rol respuesta = rolUseCase.guardarRol(rol);
             if (respuesta == null) {
@@ -49,8 +49,8 @@ public class RolService {
         }
     }
 
-    public ObjetoRespuesta<RolDTORespuesta> actualizarRol(RolDTOConsulta RolDTOConsulta){
-        Rol rol = IRolMapper.INSTANCE.consultaDtoToRol(RolDTOConsulta);
+    public ObjetoRespuesta<RolDTORespuesta> actualizarRol(RolDTOConsulta rolDTOConsulta){
+        Rol rol = IRolMapper.INSTANCE.consultaDtoToRol(rolDTOConsulta);
         try {
             Rol respuesta = rolUseCase.guardarRol(rol);
             if (respuesta == null) {
@@ -71,9 +71,9 @@ public class RolService {
     }
 
     public ObjetoRespuesta<List<RolDTORespuesta>> obtenerTodosRol(){
-        Stream<Rol> RolStream = rolUseCase.obtenerTodosRol();
+        Stream<Rol> rolStream = rolUseCase.obtenerTodosRol();
 
-        List<RolDTORespuesta> Rols = RolStream
+        List<RolDTORespuesta> Rols = rolStream
                 .map(
                         IRolMapper.INSTANCE::rolToDtoRespuesta
                 ).collect(Collectors.toList());

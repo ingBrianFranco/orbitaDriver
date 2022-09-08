@@ -2,9 +2,9 @@ package com.pragma.orbita.driver.users.infrastructure.endpoint;
 
 import com.pragma.orbita.driver.users.application.DTOConsulta.UsuarioDTOConsulta;
 import com.pragma.orbita.driver.users.application.DTORespuesta.UsuarioDTORespuesta;
-import com.pragma.orbita.driver.users.application.service.UsuarioService;
 import com.pragma.orbita.driver.users.application.respuesta.ObjetoRespuesta;
-import lombok.AllArgsConstructor;
+import com.pragma.orbita.driver.users.application.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -18,10 +18,10 @@ import java.util.List;
 @RestController
 @RequestMapping("usuario")
 @Validated
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class EndpointUsuario {
 
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
     @GetMapping("/{idUsuario}")
     public ResponseEntity<UsuarioDTORespuesta> buscarUsuarioPorId(@NotNull @PathVariable int idUsuario){

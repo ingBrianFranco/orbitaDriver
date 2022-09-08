@@ -11,9 +11,9 @@ public interface IUsuarioRolRepository {
 
     UsuarioRol guardarUsuarioRol(UsuarioRol usuarioRol);
 
-    Boolean existeUsuarioById(int idUsuarioRol);
+    Boolean existeUsuarioRolById(int idUsuarioRol);
 
-    void eliminarUsuarioById(int idUsuarioRol);
+    void eliminarUsuarioRolById(int idUsuarioRol);
 
     Stream<UsuarioRol> obtenerTodosUsuariosRol();
 }

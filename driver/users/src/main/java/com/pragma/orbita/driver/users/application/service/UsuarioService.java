@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class UsuarioService {
 
-    private UsuarioUseCase usuarioUseCase;
+    private final UsuarioUseCase usuarioUseCase;
 
     public ObjetoRespuesta<UsuarioDTORespuesta> buscarUsuarioPorId(int idUsuario){
         Usuario respuesta = usuarioUseCase.getUsuarioById(idUsuario);

@@ -6,6 +6,7 @@ import com.pragma.orbita.driver.users.infrastructure.persistence.DAO.IRolDao;
 import com.pragma.orbita.driver.users.infrastructure.persistence.entity.RolEntity;
 import com.pragma.orbita.driver.users.infrastructure.persistence.mapper.IMapperRolRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,10 +15,10 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RolRepositoryImpl implements IRolRepository {
     
-    private IRolDao rolDao;
+    private final IRolDao rolDao;
 
     @Override
     public Optional<Rol> getRolById(int idRol) {

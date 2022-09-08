@@ -16,9 +16,9 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class RolUseCase {
 
-    private IRolRepository rolRepository;
+    private final IRolRepository rolRepository;
 
-    private Validator validator;
+    private final Validator validator;
 
     public Rol getRolById(int idRol){
         if(idRol <= 0){
