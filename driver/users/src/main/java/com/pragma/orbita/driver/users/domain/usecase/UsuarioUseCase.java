@@ -2,37 +2,37 @@ package com.pragma.orbita.driver.users.domain.usecase;
 
 import com.pragma.orbita.driver.users.domain.model.Usuario;
 import com.pragma.orbita.driver.users.domain.repository.IUsuarioRepository;
-import com.pragma.orbita.driver.users.domain.respuesta.ObjetoRespuestaDomain;
+import com.pragma.orbita.driver.users.application.respuesta.ObjetoRespuesta;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UsuarioUseCase {
 
     private IUsuarioRepository usuarioRepository;
     private Validator validator;
 
-    public ObjetoRespuestaDomain<Usuario> getUsuarioById(int idUsuario){
+    public Usuario getUsuarioById(int idUsuario){
         if(idUsuario <= 0){
-            return new ObjetoRespuestaDomain<Usuario>(null, "Id no válido");
+            return null;
         }
-        Optional<Usuario> Usuario = usuarioRepository.getUsuarioById(idUsuario);
-        String msj = "Usuario encontrada";
-        if(Usuario.isEmpty()){
-            msj = "La Usuario no existe en el sistema";
-            return new ObjetoRespuestaDomain<Usuario>(null, msj);
+        Optional<Usuario> usuario = usuarioRepository.getUsuarioById(idUsuario);
+        if(usuario.isEmpty()){
+            return null;
         }
-        return new ObjetoRespuestaDomain<Usuario>(Usuario.get(), msj);
+        return usuario.get();
     }
 
-    public ObjetoRespuestaDomain<Usuario> guardarUsuario(Usuario Usuario){
+    public Usuario guardarUsuario(Usuario Usuario) throws ValidationException {
         Set<ConstraintViolation<Usuario>> validation = validator.validate(Usuario);
         if(!validation.isEmpty()){
             StringBuilder errores = new StringBuilder("Datos no válidos.");
@@ -41,13 +41,10 @@ public class UsuarioUseCase {
                 errores.append(x.getMessage());
                 errores.append(", ");
             });
-            return new ObjetoRespuestaDomain<Usuario>(null, errores.toString());
+            throw new ValidationException(errores.toString());
         }
         Usuario respuesta = usuarioRepository.guardarUsuario(Usuario);
-        if(respuesta == null){
-            return new ObjetoRespuestaDomain<Usuario>(null, "Ocurrió un error al guardar la categoría");
-        }
-        return new ObjetoRespuestaDomain<Usuario>(respuesta, "Usuario agregada con éxito, id: " + respuesta.getIdUsuario());
+        return respuesta;
     }
 
     public boolean existeUsuarioById(int idUsuario){
@@ -57,28 +54,25 @@ public class UsuarioUseCase {
         return usuarioRepository.existeUsuarioById(idUsuario);
     }
 
-    public ObjetoRespuestaDomain<Object> eliminarUsuarioById(int idUsuario){
+    public String eliminarUsuarioById(int idUsuario){
         if(idUsuario <= 0){
-            return new ObjetoRespuestaDomain<Object>(null, "Id no válido");
+            return "Id no válido";
         }
         if(!existeUsuarioById(idUsuario)){
-            return new ObjetoRespuestaDomain<Object>(idUsuario, "Esta categoría no se encuentra registrada en el sistema, nada que eliminar");
+            return "Este usuario no se encuentra registrado en el sistema, nada que eliminar";
         }
 
         usuarioRepository.eliminarUsuarioById(idUsuario);
 
         if(!existeUsuarioById(idUsuario)){
-            return new ObjetoRespuestaDomain<Object>(idUsuario, "Categoría eliminada con éxito");
+            return "Usuario eliminado con éxito";
         }else{
-            return new ObjetoRespuestaDomain<Object>(idUsuario, "Ocurrió un error al eliminar la categoría");
+            return "Ocurrió un error al intentar eliminar el usuario";
         }
     }
 
-    public ObjetoRespuestaDomain<Stream<Usuario>> obtenerTodosUsuarios(){
-        return new ObjetoRespuestaDomain<Stream<Usuario>>(
-                usuarioRepository.obtenerTodosUsuarios(),
-                "Listado"
-        );
+    public Stream<Usuario> obtenerTodosUsuarios(){
+        return usuarioRepository.obtenerTodosUsuarios();
     }
 
 }

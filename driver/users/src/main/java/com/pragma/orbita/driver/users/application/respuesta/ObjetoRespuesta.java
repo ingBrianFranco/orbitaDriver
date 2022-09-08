@@ -1,4 +1,4 @@
-package com.pragma.orbita.driver.users.domain.respuesta;
+package com.pragma.orbita.driver.users.application.respuesta;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ObjetoRespuestaDomain<T> {
+public class ObjetoRespuesta<T> {
     private T dato;
     private String message;
 }

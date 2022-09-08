@@ -3,7 +3,7 @@ package com.pragma.orbita.driver.users.infrastructure.endpoint;
 import com.pragma.orbita.driver.users.application.DTOConsulta.RolDTOConsulta;
 import com.pragma.orbita.driver.users.application.DTORespuesta.RolDTORespuesta;
 import com.pragma.orbita.driver.users.application.service.RolService;
-import com.pragma.orbita.driver.users.domain.respuesta.ObjetoRespuestaDomain;
+import com.pragma.orbita.driver.users.application.respuesta.ObjetoRespuesta;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("rol")
@@ -26,7 +25,7 @@ public class EndpointRol {
 
     @GetMapping("/{idRol}")
     public ResponseEntity<RolDTORespuesta> buscarRolPorId(@NotNull @PathVariable int idRol){
-        ObjetoRespuestaDomain<RolDTORespuesta> rol = rolService.buscarRolPorId(idRol);
+        ObjetoRespuesta<RolDTORespuesta> rol = rolService.buscarRolPorId(idRol);
         final MultiValueMap<String, String> message = new LinkedMultiValueMap<>();
         message.add("Mensaje", rol.getMessage());
         if(rol.getDato() == null){
@@ -37,7 +36,7 @@ public class EndpointRol {
 
     @PostMapping
     public ResponseEntity<RolDTORespuesta> guardarRol(@NotNull @RequestBody RolDTOConsulta RolDTOConsulta){
-        ObjetoRespuestaDomain<RolDTORespuesta> rol = rolService.guardarRol(RolDTOConsulta);
+        ObjetoRespuesta<RolDTORespuesta> rol = rolService.guardarRol(RolDTOConsulta);
         final MultiValueMap<String, String> message = new LinkedMultiValueMap<>();
         message.add("Mensaje", rol.getMessage());
         if(rol.getDato() == null){
@@ -48,7 +47,7 @@ public class EndpointRol {
 
     @PutMapping
     public ResponseEntity<RolDTORespuesta> actualizarRol(@NotNull @RequestBody RolDTOConsulta RolDTOConsulta){
-        ObjetoRespuestaDomain<RolDTORespuesta> rol = rolService.actualizarRol(RolDTOConsulta);
+        ObjetoRespuesta<RolDTORespuesta> rol = rolService.actualizarRol(RolDTOConsulta);
         final MultiValueMap<String, String> message = new LinkedMultiValueMap<>();
         message.add("Mensaje", rol.getMessage());
         if(rol.getDato() == null){
@@ -59,7 +58,7 @@ public class EndpointRol {
 
     @DeleteMapping("/{idRol}")
     public ResponseEntity<Object> eliminarRolPorId(@NotNull @PathVariable int idRol){
-        ObjetoRespuestaDomain<Object> rol = rolService.eliminarRolById(idRol);
+        ObjetoRespuesta<Object> rol = rolService.eliminarRolById(idRol);
         final MultiValueMap<String, String> message = new LinkedMultiValueMap<>();
         message.add("Mensaje", rol.getMessage());
         if(rol.getDato() == null){
@@ -70,7 +69,7 @@ public class EndpointRol {
 
     @GetMapping
     public ResponseEntity<List<RolDTORespuesta>> buscarRolPorId(){
-        ObjetoRespuestaDomain<List<RolDTORespuesta>> rol = rolService.obtenerTodosRol();
+        ObjetoRespuesta<List<RolDTORespuesta>> rol = rolService.obtenerTodosRol();
         final MultiValueMap<String, String> message = new LinkedMultiValueMap<>();
         message.add("Mensaje", rol.getMessage());
         if(rol.getDato() == null){

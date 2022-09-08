@@ -3,7 +3,7 @@ package com.pragma.orbita.driver.users.infrastructure.endpoint;
 import com.pragma.orbita.driver.users.application.DTOConsulta.UsuarioDTOConsulta;
 import com.pragma.orbita.driver.users.application.DTORespuesta.UsuarioDTORespuesta;
 import com.pragma.orbita.driver.users.application.service.UsuarioService;
-import com.pragma.orbita.driver.users.domain.respuesta.ObjetoRespuestaDomain;
+import com.pragma.orbita.driver.users.application.respuesta.ObjetoRespuesta;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class EndpointUsuario {
 
     @GetMapping("/{idUsuario}")
     public ResponseEntity<UsuarioDTORespuesta> buscarUsuarioPorId(@NotNull @PathVariable int idUsuario){
-        ObjetoRespuestaDomain<UsuarioDTORespuesta> usuario = usuarioService.buscarUsuarioPorId(idUsuario);
+        ObjetoRespuesta<UsuarioDTORespuesta> usuario = usuarioService.buscarUsuarioPorId(idUsuario);
         final MultiValueMap<String, String> message = new LinkedMultiValueMap<>();
         message.add("Mensaje", usuario.getMessage());
         if(usuario.getDato() == null){
@@ -36,7 +36,7 @@ public class EndpointUsuario {
 
     @PostMapping
     public ResponseEntity<UsuarioDTORespuesta> guardarUsuario(@NotNull @RequestBody UsuarioDTOConsulta UsuarioDTOConsulta){
-        ObjetoRespuestaDomain<UsuarioDTORespuesta> usuario = usuarioService.guardarUsuario(UsuarioDTOConsulta);
+        ObjetoRespuesta<UsuarioDTORespuesta> usuario = usuarioService.guardarUsuario(UsuarioDTOConsulta);
         final MultiValueMap<String, String> message = new LinkedMultiValueMap<>();
         message.add("Mensaje", usuario.getMessage());
         if(usuario.getDato() == null){
@@ -47,7 +47,7 @@ public class EndpointUsuario {
 
     @PutMapping
     public ResponseEntity<UsuarioDTORespuesta> actualizarUsuario(@NotNull @RequestBody UsuarioDTOConsulta UsuarioDTOConsulta){
-        ObjetoRespuestaDomain<UsuarioDTORespuesta> usuario = usuarioService.actualizarUsuario(UsuarioDTOConsulta);
+        ObjetoRespuesta<UsuarioDTORespuesta> usuario = usuarioService.actualizarUsuario(UsuarioDTOConsulta);
         final MultiValueMap<String, String> message = new LinkedMultiValueMap<>();
         message.add("Mensaje", usuario.getMessage());
         if(usuario.getDato() == null){
@@ -58,7 +58,7 @@ public class EndpointUsuario {
 
     @DeleteMapping("/{idUsuario}")
     public ResponseEntity<Object> eliminarUsuarioPorId(@NotNull @PathVariable int idUsuario){
-        ObjetoRespuestaDomain<Object> usuario = usuarioService.eliminarUsuarioById(idUsuario);
+        ObjetoRespuesta<Object> usuario = usuarioService.eliminarUsuarioById(idUsuario);
         final MultiValueMap<String, String> message = new LinkedMultiValueMap<>();
         message.add("Mensaje", usuario.getMessage());
         if(usuario.getDato() == null){
@@ -69,7 +69,7 @@ public class EndpointUsuario {
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTORespuesta>> buscarUsuarioPorId(){
-        ObjetoRespuestaDomain<List<UsuarioDTORespuesta>> usuario = usuarioService.obtenerTodosUsuarios();
+        ObjetoRespuesta<List<UsuarioDTORespuesta>> usuario = usuarioService.obtenerTodosUsuarios();
         final MultiValueMap<String, String> message = new LinkedMultiValueMap<>();
         message.add("Mensaje", usuario.getMessage());
         if(usuario.getDato() == null){
